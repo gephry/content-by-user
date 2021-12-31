@@ -41,9 +41,7 @@ function CBU_main( $content_type = '' ) {
 	<div class="wrap">
 
 
-	<h2>Filter content by user</h2>
-		<p>Is null? <?php echo ( is_null( $content_type ) === TRUE ? "true" : "false" ); ?></p>
-		<p>List of all <?php echo ( is_null( $content_type ) ? "content" : $content_type ); ?>, filterable by user.</p>
+	<h2>View content by user</h2>
 	
 		<form name="filter_content" method="post">
 		<?php wp_nonce_field( 'refresh_filter', 'CBU_nonce' ); ?>
@@ -56,7 +54,7 @@ function CBU_main( $content_type = '' ) {
 	   // add user list to the drop-down menu in the form
 	   $user_list = get_users( array( 'fields' => array( 'display_name', 'ID' ), 'role__in' => array( 'author', 'editor', 'contributor', 'administrator' ) ) );
              
-	   ?>Filter by user <select name="filter_by_user_id">
+	   ?>Viewing content for user <select name="filter_by_user_id">
 <?php /*	   <option value="all" <?php if( $user_id__filter == '' ) echo "SELECTED"; ?>>All users</option> */ ?> 
 	   <?php 
         foreach( $user_list as $user ) {
@@ -128,10 +126,10 @@ function CBU_main( $content_type = '' ) {
         <?php 	
        //var_dump( $comment_list );
         
-        require '_table_head.php'; // template for formatting row
+        require '_tableComment_head.php'; // template for formatting row
         $type="comment";
         foreach( $comment_list as $post ) {
-            require '_tablePost_row.php'; // template for formatting row
+            require '_tableComment_row.php'; // template for formatting row
         }
         require '_table_footer.php'; // end of table */
 	    ?>
