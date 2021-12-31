@@ -68,69 +68,70 @@ function CBU_main( $content_type = '' ) {
         ?>
         </select>
         <input type="submit" name="filter_action" id="submit-filter" class="button" value="Apply Filter"  />
-        
+       
+       
+<?php 
+       
+// PAGES
+//  Get and show filtered content
+
+        $page_list = get_pages( array( 'authors'=>$user_id__filter ) );
+?>         
         <Br/><Br/>
-        <h2>Pages</h2>	
+        <h2>Pages (<?php echo count( $page_list ); ?>)</h2>	
         <?php 
        
         
         //$listview = new Listview();
         
-// PAGES
-//  Get and show filtered content    
-        
-        
-        $page_list = get_pages( array( 'authors'=>$user_id__filter ) );
         //var_dump( $page_list );
         
         require '_table_head.php'; // template for formatting row
         $type="page";
         foreach( $page_list as $page ) {
             require '_table_row.php'; // template for formatting row
-            echo $page->ID;
         }
         require '_table_footer.php'; // end of table
-	   ?>
-	   
-	   
-	   
-        <Br/><Br/ >
-        <h2>Posts</h2>	
-        <?php 
-	    
+
+        
+        
 // POSTS
 //  Get and show filtered content    
-        
-        
+	   
         $post_list = get_posts( array( 'author'=>$user_id__filter ) );
+?>
+        <Br/><Br/ >
+        <h2>Posts (<?php echo count( $post_list ); ?>)</h2>	
+        
+        <?php 
+       
        // var_dump( $post_list );
         
         require '_table_head.php'; // template for formatting row
         $type="post";
         foreach( $post_list as $page ) {
             require '_table_row.php'; // template for formatting row
-            echo $page->ID;
         }
         require '_table_footer.php'; // end of table */
-	    ?>
-	    
-	   
-	   
-        <Br/><Br/ >
-        <h2>Comments</h2>	
-        <?php 
+
+        
+        
+        
 // Comments
 //  Get and show filtered content    
         
-        
         $comment_list = get_comments( array( 'user_id'=>$user_id__filter ) );
-       var_dump( $comment_list );
+?>	   
+        <Br/><Br/ >
+        <h2>Comments (<?php echo count( $comment_list ); ?>)</h2>
+        
+        <?php 	
+       //var_dump( $comment_list );
         
         require '_table_head.php'; // template for formatting row
         $type="comment";
-        foreach( $comment_list as $page ) {
-            require '_table_row.php'; // template for formatting row
-            echo $page->ID;
+        foreach( $comment_list as $post ) {
+            require '_tablePost_row.php'; // template for formatting row
         }
         require '_table_footer.php'; // end of table */
 	    ?>
