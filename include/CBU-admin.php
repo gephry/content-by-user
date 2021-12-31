@@ -16,13 +16,13 @@ function CBU_main( $content_type = '' ) {
 
     // If the form was submitted and page reloaded, let's ensure nonce is correct / process form data 
     if (!empty($_POST['was_form_submitted'])) {
-        if( !isset( $_POST['refresh_filter'] ) || !wp_verify_nonce( $_POST['refresh_filter'], 'CBU_nonce' )
+        if( !isset( $_POST['CBU_nonce'] ) || !wp_verify_nonce( $_POST['CBU_nonce'], 'refresh_filter' )
             ) {
                 print 'Oops. Your nonce did not verify.';
                 exit;
             } else {
                 // process form data
-                $user_id__filter = get_current_user_id();
+                $user_id__filter = $_POST["filter_by_user_id"];
                 
             }
     } else {
