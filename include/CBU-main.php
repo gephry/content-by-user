@@ -7,11 +7,6 @@
 ************************************************************/
 
 
-function CBU_pages() {
-
-    CBU_main( "pages" );
-}
-
 function CBU_main( $content_type = '' ) {
 
 // POST authentication
@@ -54,7 +49,7 @@ function CBU_main( $content_type = '' ) {
 	   // add user list to the drop-down menu in the form
 	   $user_list = get_users( array( 'fields' => array( 'display_name', 'ID' ), 'role__in' => array( 'author', 'editor', 'contributor', 'administrator' ) ) );
              
-	   ?>Viewing content for user <select name="filter_by_user_id">
+	   ?>Viewing content for <select name="filter_by_user_id">
 <?php /*	   <option value="all" <?php if( $user_id__filter == '' ) echo "SELECTED"; ?>>All users</option> */ ?> 
 	   <?php 
         foreach( $user_list as $user ) {
@@ -70,71 +65,76 @@ function CBU_main( $content_type = '' ) {
        
 <?php 
        
-// PAGES
+// ====== PAGES
 //  Get and show filtered content
-
-        $page_list = get_pages( array( 'authors'=>$user_id__filter ) );
+        $page_table = new TableData( "pages", $user_id__filter );
+        $header = $page_table->setUpHeaders();
+        $page_list = $page_table->filterPages();
+        
 ?>         
-        <Br/><Br/>
+        <br/><br/>
         <h2>Pages (<?php echo count( $page_list ); ?>)</h2>	
-        <?php 
-       
-        
-        //$listview = new Listview();
-        
-        //var_dump( $page_list );
-        
+		
+<?php         
         require '_table_head.php'; // template for formatting row
-        $type="page";
-        foreach( $page_list as $page ) {
+        foreach( $page_list as $row_content ) {
+            $user_data = get_userdata( $row_content->post_author );
             require '_table_row.php'; // template for formatting row
         }
         require '_table_footer.php'; // end of table
+       
+        unset( $page_list, $page_table, $user_data, $header );
+?>
+        <br/><br/>
 
-        
-        
-// POSTS
+
+
+
+<?php         
+// ====== POSTS 
 //  Get and show filtered content    
 	   
-        $post_list = get_posts( array( 'author'=>$user_id__filter ) );
+        $page_table = new TableData( "posts", $user_id__filter );
+        $header = $page_table->setUpHeaders();
+        $post_list = $page_table->filterPosts();
 ?>
-        <Br/><Br/ >
         <h2>Posts (<?php echo count( $post_list ); ?>)</h2>	
         
-        <?php 
+<?php 
        
-       // var_dump( $post_list );
-        
         require '_table_head.php'; // template for formatting row
-        $type="post";
-        foreach( $post_list as $page ) {
+        foreach( $post_list as $row_content ) {
+            $user_data = get_userdata( $row_content->post_author );
             require '_table_row.php'; // template for formatting row
         }
         require '_table_footer.php'; // end of table */
 
+?>        
+        <br/><br/>
         
-        
-        
-// Comments
+  
+  
+  
+<?php       
+// ====== Comments
 //  Get and show filtered content    
+
+        $page_table = new TableData( "comments", $user_id__filter );
+        $header = $page_table->setUpHeaders();
+        $comment_list = $page_table->filterComments();
         
-        $comment_list = get_comments( array( 'user_id'=>$user_id__filter ) );
 ?>	   
-        <Br/><Br/ >
         <h2>Comments (<?php echo count( $comment_list ); ?>)</h2>
+<?php 	
         
-        <?php 	
-       //var_dump( $comment_list );
-        
-        require '_tableComment_head.php'; // template for formatting row
-        $type="comment";
-        foreach( $comment_list as $post ) {
+        require '_table_head.php'; // template for formatting row
+        foreach( $comment_list as $row_content ) {
             require '_tableComment_row.php'; // template for formatting row
         }
         require '_table_footer.php'; // end of table */
-	    ?>
-	    
-	    
+        
+        ?>
+        <br/><br/>
 	    
        </form>
         

@@ -1,19 +1,19 @@
 <?php 
 /* 
- * All display table starts
+ * All display table headers. Info provided by CBU-main
  */
 ?>
 
 
-        <table class="wp-list-table widefat fixed striped table-view-list ".$type."" >
+        <table class="wp-list-table widefat fixed striped table-view-list ".$header["type"]." >
         	<thead>
         		<tr>
 			        <th scope="col" id='title' class='column-title column-primary desc'>
-        				<span>Title</span>
+        				<span><?php echo $header["title"]; ?></span>
         			</th>
-			        <th scope="col" id='author' class=''>Author</th>
+			        <th scope="col" id='author' class=''><?php echo $header["author"]; ?></th>
         			<th scope="col" id='date' class=''>
-        				<span>Date</span></a>
+        				<span><?php echo $header["date"]?></span></a>
         			</th>
         		</tr>
         	</thead>

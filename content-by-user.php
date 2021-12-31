@@ -2,13 +2,13 @@
 
 /*
 Plugin Name: Content By User
-Plugin URI:  http://link to your plugin homepage
-Description: Filter any and all user-added content by the author.
+Plugin URI:  https://www.cassbarbour.com/wp-plugins/content-by-user.zip
+Description: Filter Posts, Pages, and Comments by the author from a single place. Developed for Defiant Developer job application.
 Version:     1.0
 Author:      Cass Barbour
 Author URI:  https://www.cassbarbour.com
 License:     GPL2 etc
-License URI: http://link to your plugin license
+License URI: 
 */
 
 /* Copyright 2021 Cass Barbour (email : your email address)
@@ -28,8 +28,8 @@ along with (Plugin Name). If not, see (http://link to your plugin license).
 
 
 
-require_once 'include/CBU-admin.php'; // main content
-require_once 'include/CBU-classes.php'; // main content
+require_once 'include/CBU-main.php'; // main content
+require_once 'include/CBU-TableData.php'; // main content
 
 
 
