@@ -3,7 +3,7 @@
 /*
 Plugin Name: Content By User
 Plugin URI:  https://www.cassbarbour.com/wp-plugins/content-by-user.zip
-Description: Filter Posts, Pages, and Comments by the author from a single place. Developed for Defiant Developer job application.
+Description: Filter Posts, Pages, and Comments by the author from a single place. Developed specifically for a Developer job application at Defiant.
 Version:     1.0
 Author:      Cass Barbour
 Author URI:  https://www.cassbarbour.com
