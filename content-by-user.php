@@ -29,6 +29,7 @@ along with (Plugin Name). If not, see (http://link to your plugin license).
 
 
 require_once 'include/CBU-admin.php'; // main content
+require_once 'include/CBU-classes.php'; // main content
 
 
 
