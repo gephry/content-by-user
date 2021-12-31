@@ -7,6 +7,8 @@
          post_title
          post_status
          */
+
+    $user_data = get_userdata( $page->post_author );
 ?>
         	<tr id="post-<?php echo $page->ID; ?>" class="post-<?php echo $page->ID; ?> type-page status-<?php echo $page->post_status; ?>">
     			
@@ -15,11 +17,11 @@
 					<strong><a class="row-title" href="<?php echo get_edit_post_link( $page->ID );?>"><?php echo $page->post_title; ?></a> &mdash; <span class='post-state'><?php echo $page->post_status?>, </span></strong>
 
                     <div class="row-actions">
-                    	<span class='edit'><a href="get_edit_post_link( $page->ID )">Edit</a> | </span><span class='view'><a href="<?php echo get_preview_post_link( $page->ID );?>" rel="bookmark">Preview</a></span>
+                    	<span class='edit'><a href="<?php echo get_edit_post_link( $page->ID ); ?>">Edit</a> | </span><span class='view'><a href="<?php echo get_preview_post_link( $page->ID );?>" rel="bookmark">Preview</a></span>
                     </div>
                  </td>
                  <td class='author column-author' data-colname="Author">
-                 	<?php echo $page->post_author; ?>
+                 	<?php echo $user_data->display_name; ?>
                  </td>
                  <td class='date column-date' data-colname="Date">Last Modified<br /><?php echo date( "Y/m/d h:i a", strtotime( $page->post_date ) ); ?></td>		
 			</tr>

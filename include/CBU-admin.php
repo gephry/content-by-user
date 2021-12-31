@@ -14,6 +14,7 @@ function CBU_pages() {
 
 function CBU_main( $content_type = '' ) {
 
+// POST authentication
     // If the form was submitted and page reloaded, let's ensure nonce is correct / process form data 
     if (!empty($_POST['was_form_submitted'])) {
         if( 0 || !isset( $_POST['CBU_nonce'] ) || !wp_verify_nonce( $_POST['CBU_nonce'], 'refresh_filter' )
@@ -33,12 +34,13 @@ function CBU_main( $content_type = '' ) {
         $user_id__filter = get_current_user_id();
         
     }
-    
-    $page_list = get_pages( array( 'authors'=>$user_id__filter ) );
-    
 
+    
+// Set up user filter
     ?>
 	<div class="wrap">
+
+
 	<h2>Filter content by user</h2>
 		<p>Is null? <?php echo ( is_null( $content_type ) === TRUE ? "true" : "false" ); ?></p>
 		<p>List of all <?php echo ( is_null( $content_type ) ? "content" : $content_type ); ?>, filterable by user.</p>
@@ -48,13 +50,14 @@ function CBU_main( $content_type = '' ) {
 		<input type="hidden" name="was_form_submitted" value="true" />
 		
 	<?php 
-// Set up user filter
+
 	
 	 
 	   // add user list to the drop-down menu in the form
 	   $user_list = get_users( array( 'fields' => array( 'display_name', 'ID' ), 'role__in' => array( 'author', 'editor', 'contributor', 'administrator' ) ) );
              
 	   ?>Filter by user <select name="filter_by_user_id">
+<?php /*	   <option value="all" <?php if( $user_id__filter == '' ) echo "SELECTED"; ?>>All users</option> */ ?> 
 	   <?php 
         foreach( $user_list as $user ) {
             $user_data = get_userdata( $user->ID );
@@ -71,33 +74,69 @@ function CBU_main( $content_type = '' ) {
         <?php 
        
         
-        
-//      Get and show filtered content    
-        
-        //$page_list = get_pages();
         //$listview = new Listview();
-
-        var_dump( $page_list );
+        
+// PAGES
+//  Get and show filtered content    
+        
+        
+        $page_list = get_pages( array( 'authors'=>$user_id__filter ) );
+        //var_dump( $page_list );
         
         require '_table_head.php'; // template for formatting row
-        
-        ?>
-
-        <?php 
         $type="page";
         foreach( $page_list as $page ) {
             require '_table_row.php'; // template for formatting row
             echo $page->ID;
         }
+        require '_table_footer.php'; // end of table
+	   ?>
+	   
+	   
+	   
+        <Br/><Br/ >
+        <h2>Posts</h2>	
+        <?php 
+	    
+// POSTS
+//  Get and show filtered content    
         
-        ?>
         
-		
-			</tbody>
-		</table>
+        $post_list = get_posts( array( 'author'=>$user_id__filter ) );
+       // var_dump( $post_list );
         
-       
-       
+        require '_table_head.php'; // template for formatting row
+        $type="post";
+        foreach( $post_list as $page ) {
+            require '_table_row.php'; // template for formatting row
+            echo $page->ID;
+        }
+        require '_table_footer.php'; // end of table */
+	    ?>
+	    
+	   
+	   
+        <Br/><Br/ >
+        <h2>Comments</h2>	
+        <?php 
+// Comments
+//  Get and show filtered content    
+        
+        
+        $comment_list = get_comments( array( 'user_id'=>$user_id__filter ) );
+       var_dump( $comment_list );
+        
+        require '_table_head.php'; // template for formatting row
+        $type="comment";
+        foreach( $comment_list as $page ) {
+            require '_table_row.php'; // template for formatting row
+            echo $page->ID;
+        }
+        require '_table_footer.php'; // end of table */
+	    ?>
+	    
+	    
+	    
        </form>
         
 	</div>
@@ -105,6 +144,4 @@ function CBU_main( $content_type = '' ) {
   
 <?php   
 }
-
-
 ?>

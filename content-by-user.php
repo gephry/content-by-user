@@ -57,6 +57,17 @@ function Add_Menu_Pages()
             30);
     }
     
+    
+    //if (function_exists('add_users_page')) {
+    if (function_exists('add_user_page')) {
+        add_menu_page(
+            __('Content by user', 'content-by-user'),
+            __('Content by user', 'content-by-user'),
+            'administrator',
+            'Content_By_User',
+            'CBU_main');
+    }
+    
 }
 add_action('admin_menu', 'Add_Menu_Pages');
 

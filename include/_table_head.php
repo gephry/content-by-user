@@ -12,9 +12,6 @@
         				<span>Title</span>
         			</th>
 			        <th scope="col" id='author' class=''>Author</th>
-			        <th scope="col" id='comments' class=''>
-        				<span class="screen-reader-text">Comments</span>
-        			</th>
         			<th scope="col" id='date' class=''>
         				<span>Date</span></a>
         			</th>
