@@ -16,9 +16,9 @@ function CBU_main( $content_type = '' ) {
 
     // If the form was submitted and page reloaded, let's ensure nonce is correct / process form data 
     if (!empty($_POST['was_form_submitted'])) {
-        if( !isset( $_POST['CBU_nonce'] ) || !wp_verify_nonce( $_POST['CBU_nonce'], 'refresh_filter' )
+        if( 0 || !isset( $_POST['CBU_nonce'] ) || !wp_verify_nonce( $_POST['CBU_nonce'], 'refresh_filter' )
             ) {
-                print 'Oops. Your nonce did not verify.';
+                echo '<h2>Oops. Your nonce did not verify.</h2>';
                 exit;
             } else {
                 // process form data
@@ -34,7 +34,7 @@ function CBU_main( $content_type = '' ) {
         
     }
     
-    $page_list = wp_list_pages( array( 'authors'=>$user_id__filter ) );
+    $page_list = get_pages( array( 'authors'=>$user_id__filter ) );
     
 
     ?>
@@ -64,7 +64,10 @@ function CBU_main( $content_type = '' ) {
         }     
         ?>
         </select>
-        <input type="submit" name="filter_action" id="submit-filter" class="button" value="Apply Filter"  />	
+        <input type="submit" name="filter_action" id="submit-filter" class="button" value="Apply Filter"  />
+        
+        <Br/><Br/>
+        <h2>Pages</h2>	
         <?php 
        
         
@@ -72,11 +75,27 @@ function CBU_main( $content_type = '' ) {
 //      Get and show filtered content    
         
         //$page_list = get_pages();
-        //$lv = new Listview();
+        //$listview = new Listview();
+
+        var_dump( $page_list );
         
-        echo $page_list;
+        require '_table_head.php'; // template for formatting row
         
         ?>
+
+        <?php 
+        $type="page";
+        foreach( $page_list as $page ) {
+            require '_table_row.php'; // template for formatting row
+            echo $page->ID;
+        }
+        
+        ?>
+        
+		
+			</tbody>
+		</table>
+        
        
        
        </form>

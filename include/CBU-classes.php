@@ -7,6 +7,12 @@ class Listview {
     {
         
     }
+    
+    public function startTable( $type ) { // $id
+        
+            
+    }
+    
      
     
 }
